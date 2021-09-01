@@ -35,3 +35,7 @@ simpleToast.toast("Warning message", "warning");
 ```
 
 If a variant falls outside the four variants stipulated, the library defaults back to the info variant of the toast.
+
+Simple toast currently does not support title of the toast notifications, only operating to show the message of the notification.
+
+The toasts are set to disappear automatically after 6 seconds of being visible.
