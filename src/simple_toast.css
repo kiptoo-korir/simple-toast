@@ -9,6 +9,7 @@
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
   opacity: 0;
   border-radius: 0.25rem;
+  transition: opacity 0.5s linear;
 }
 
 .toast-container {
@@ -42,35 +43,14 @@
   border-color: #d1ecf1;
 }
 
-.fade {
-  transition: opacity 0.15s linear;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .fade {
+  .toast {
     transition: none;
   }
 }
 
-.fade:not(.show) {
-  opacity: 0;
-}
-
 .toast:not(:last-child) {
   margin-bottom: 0.75rem;
-}
-
-.toast.showing {
-  opacity: 1;
-}
-
-.toast.show {
-  display: block;
-  opacity: 1;
-}
-
-.toast.hide {
-  display: none;
 }
 
 .toast-body {
