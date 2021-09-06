@@ -1,35 +1,31 @@
-function SimpleToast() {
-  var _this = this;
-  this.errArray = ["", null, undefined];
+class SimpleToast {
+  constructor() {
+    this.errArray = ["", null, undefined];
+    this.initialize();
+  }
 
-  this.initialize = () => {
-    if (!checkForContainer) {
+  checkForContainer() {
+    let containerElement = document.getElementById("simple_toast_container");
+    return containerElement ? true : false;
+  }
+
+  initialize() {
+    if (this.checkForContainer()) {
       document.removeChild(document.getElementById("simple_toast_container"));
     }
     let newContainerElement = document.createElement("div");
     newContainerElement.classList.add("toast-container");
     newContainerElement.id = "simple_toast_container";
     document.body.append(newContainerElement);
-  };
-
-  function checkForContainer() {
-    let containerElement = document.getElementById("simple_toast_container");
-    return containerElement ? true : false;
   }
 
-  this.toast = (message, variant) => {
-    !checkForContainer ? init() : "";
-    let toastClass = getToastClass(variant);
+  toast(message, variant) {
+    !this.checkForContainer() ? this.initialize() : "";
+    let toastClass = this.getToastClass(variant);
     let newToast = document.createElement("div");
-    let newToastId = Date.now() + randomIdGenerator();
+    let newToastId = Date.now() + this.randomIdGenerator();
     newToast.id = newToastId;
-    newToast.classList.add(
-      toastClass,
-      "toast",
-      "toast-notification",
-      "fade",
-      "show"
-    );
+    newToast.classList.add(toastClass, "toast", "toast-notification");
     let newToastBody = document.createElement("div");
     newToastBody.innerHTML = message;
     newToastBody.classList.add("toast-body");
@@ -45,12 +41,20 @@ function SimpleToast() {
     }
 
     setTimeout(() => {
+      newToast.style.opacity = 1;
+    }, 20);
+
+    setTimeout(() => {
+      newToast.style.opacity = 0;
+    }, 6000);
+
+    setTimeout(() => {
       let nodeToRemove = document.getElementById(newToastId);
       nodeToRemove.parentNode.removeChild(nodeToRemove);
-    }, 6000);
-  };
+    }, 6500);
+  }
 
-  function getToastClass(variant) {
+  getToastClass(variant) {
     let toastClass =
       variant == "success"
         ? "toast-success"
@@ -65,10 +69,9 @@ function SimpleToast() {
     return toastClass;
   }
 
-  function randomIdGenerator() {
+  randomIdGenerator() {
     return Math.random().toString(16).substr(2, 4);
   }
 }
 
 var simpleToast = new SimpleToast();
-simpleToast.initialize();
