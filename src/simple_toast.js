@@ -70,7 +70,7 @@ class SimpleToast {
   }
 
   randomIdGenerator() {
-    return Math.random().toString(16).substr(2, 4);
+    return Math.random().toString(16).substring(2, 4);
   }
 }
 
