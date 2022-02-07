@@ -14,9 +14,27 @@
 
 .toast-container {
   position: fixed;
+  z-index: 1500;
+}
+
+.top-right {
   top: 3%;
   right: 3%;
-  z-index: 1500;
+}
+
+.top-left {
+  top: 3%;
+  left: 3%;
+}
+
+.bottom-right {
+  bottom: 3%;
+  right: 3%;
+}
+
+.bottom-left {
+  bottom: 3%;
+  left: 3%;
 }
 
 .toast-success {

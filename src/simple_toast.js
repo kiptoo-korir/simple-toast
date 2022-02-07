@@ -1,6 +1,11 @@
 class SimpleToast {
-  constructor() {
+  constructor({ duration = 6000, position = "top-right" } = {}) {
     this.errArray = ["", null, undefined];
+    this.positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
+
+    this.duration = duration < 0 ? 6000 : duration;
+    this.position = this.positions.includes ? position : "top-right";
+
     this.initialize();
   }
 
@@ -14,7 +19,7 @@ class SimpleToast {
       document.removeChild(document.getElementById("simple_toast_container"));
     }
     let newContainerElement = document.createElement("div");
-    newContainerElement.classList.add("toast-container");
+    newContainerElement.classList.add("toast-container", this.position);
     newContainerElement.id = "simple_toast_container";
     document.body.append(newContainerElement);
   }
@@ -46,12 +51,12 @@ class SimpleToast {
 
     setTimeout(() => {
       newToast.style.opacity = 0;
-    }, 6000);
+    }, this.duration);
 
     setTimeout(() => {
       let nodeToRemove = document.getElementById(newToastId);
       nodeToRemove.parentNode.removeChild(nodeToRemove);
-    }, 6500);
+    }, this.duration + 500);
   }
 
   getToastClass(variant) {
@@ -73,5 +78,3 @@ class SimpleToast {
     return Math.random().toString(16).substring(2, 4);
   }
 }
-
-var simpleToast = new SimpleToast();
