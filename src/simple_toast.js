@@ -4,18 +4,18 @@ class SimpleToast {
     this.positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
 
     this.duration = duration < 0 ? 6000 : duration;
-    this.position = this.positions.includes ? position : "top-right";
+    this.position = this.positions.includes(position) ? position : "top-right";
 
     this.initialize();
   }
 
-  checkForContainer() {
+  #checkForContainer() {
     let containerElement = document.getElementById("simple_toast_container");
     return containerElement ? true : false;
   }
 
   initialize() {
-    if (this.checkForContainer()) {
+    if (this.#checkForContainer()) {
       document.removeChild(document.getElementById("simple_toast_container"));
     }
     let newContainerElement = document.createElement("div");
@@ -25,10 +25,10 @@ class SimpleToast {
   }
 
   toast(message, variant) {
-    !this.checkForContainer() ? this.initialize() : "";
-    let toastClass = this.getToastClass(variant);
+    !this.#checkForContainer() ? this.initialize() : "";
+    let toastClass = this.#getToastClass(variant);
     let newToast = document.createElement("div");
-    let newToastId = Date.now() + this.randomIdGenerator();
+    let newToastId = Date.now() + this.#randomIdGenerator();
     newToast.id = newToastId;
     newToast.classList.add(toastClass, "toast", "toast-notification");
     let newToastBody = document.createElement("div");
@@ -59,7 +59,7 @@ class SimpleToast {
     }, this.duration + 500);
   }
 
-  getToastClass(variant) {
+  #getToastClass(variant) {
     let toastClass =
       variant == "success"
         ? "toast-success"
@@ -74,7 +74,7 @@ class SimpleToast {
     return toastClass;
   }
 
-  randomIdGenerator() {
+  #randomIdGenerator() {
     return Math.random().toString(16).substring(2, 4);
   }
 }
