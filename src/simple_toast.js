@@ -10,17 +10,19 @@ class SimpleToast {
   }
 
   #checkForContainer() {
-    const containerElement = document.getElementById("simple_toast_container");
+    const containerElement = document.getElementById("simple-toast-container");
     return containerElement ? true : false;
   }
 
   initialize() {
     if (this.#checkForContainer()) {
-      document.removeChild(document.getElementById("simple_toast_container"));
+      document.body.removeChild(
+        document.getElementById("simple-toast-container")
+      );
     }
     const newContainerElement = document.createElement("div");
-    newContainerElement.classList.add("toast-container", this.position);
-    newContainerElement.id = "simple_toast_container";
+    newContainerElement.classList.add("simple-toast-container", this.position);
+    newContainerElement.id = "simple-toast-container";
     document.body.append(newContainerElement);
   }
 
@@ -30,18 +32,22 @@ class SimpleToast {
     const newToast = document.createElement("div");
     const newToastId = Date.now() + this.#randomIdGenerator();
     newToast.id = newToastId;
-    newToast.classList.add(toastClass, "toast", "toast-notification");
+    newToast.classList.add(
+      toastClass,
+      "simple-toast",
+      "simple-toast-notification"
+    );
     const newToastBody = document.createElement("div");
     newToastBody.innerHTML = message;
-    newToastBody.classList.add("toast-body");
+    newToastBody.classList.add("simple-toast-body");
     newToast.append(newToastBody);
-    const topToastChild = document.getElementById("simple_toast_container")
+    const topToastChild = document.getElementById("simple-toast-container")
       .children[0];
     if (this.errArray.includes(topToastChild)) {
-      document.getElementById("simple_toast_container").append(newToast);
+      document.getElementById("simple-toast-container").append(newToast);
     } else {
       document
-        .getElementById("simple_toast_container")
+        .getElementById("simple-toast-container")
         .insertBefore(newToast, topToastChild);
     }
 
@@ -61,14 +67,14 @@ class SimpleToast {
 
   #getToastClass(variant) {
     return variant === "success"
-      ? "toast-success"
+      ? "simple-toast-success"
       : variant === "error"
-      ? "toast-error"
+      ? "simple-toast-error"
       : variant === "warning"
-      ? "toast-warning"
+      ? "simple-toast-warning"
       : variant === "info"
-      ? "toast-info"
-      : "toast-info";
+      ? "simple-toast-info"
+      : "simple-toast-info";
   }
 
   #randomIdGenerator() {
